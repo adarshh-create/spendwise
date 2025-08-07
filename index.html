@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Shopping Bill Analyzer</title>
+    <link rel="stylesheet" href="spendwise.css">
+</head>
+<body>
+    <div class="floating-elements"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>SpendWise</h1>
+            <p>Analyze your shopping bills and understand your spending patterns</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Bill Entry Section -->
+            <div class="card">
+                <h2>Add New Bill</h2>
+                <form id="billForm">
+                    <div class="input-group">
+                        <label for="storeName">Store Name</label>
+                        <input type="text" id="storeName" class="input-field" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="billDate">Date</label>
+                        <input type="date" id="billDate" class="input-field" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="category">Category</label>
+                        <select id="category" class="input-field" required>
+                            <option value="">Select Category</option>
+                            <option value="Groceries">Groceries</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Dining">Dining</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" class="input-field" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="items">Items (Optional)</label>
+                        <textarea id="items" class="input-field textarea-field" placeholder="List items purchased (one per line)"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-full">Add Bill</button>
+                </form>
+            </div>
+
+            <!-- Analysis Section -->
+            <div class="card">
+                <h2>Spending Analysis</h2>
+                <div id="billsList"></div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalSpent">₹0.00</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="billCount">0</div>
+                        <div class="stat-label">Total Bills</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgBill">₹0.00</div>
+                        <div class="stat-label">Average Bill</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="topCategory">-</div>
+                        <div class="stat-label">Top Category</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container" id="categoryChart">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">Spending by Category</h3>
+                    <div id="chartBars"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="spendwise.js"></script>
+</body>
+</html>
