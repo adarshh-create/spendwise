@@ -2,36 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>SpendWise - Shopping Bill Analyzer</title>
     <link rel="stylesheet" href="spendwise.css">
 </head>
 <body>
-    <div class="floating-elements"></div>
-    
     <div class="container">
         <div class="header">
             <h1>SpendWise</h1>
-            <p>Analyze your shopping bills and understand your spending patterns</p>
+            <p>Track your shopping expenses in Rupees</p>
         </div>
 
         <div class="main-content">
             <div class="card">
                 <h2>Add New Bill</h2>
-                <form id="billForm" onsubmit="return false;">
+                <div id="billForm">
                     <div class="input-group">
                         <label for="storeName">Store Name</label>
-                        <input type="text" id="storeName" class="input-field" required autocomplete="off">
+                        <input type="text" id="storeName" class="input-field" placeholder="Enter store name">
                     </div>
                     
                     <div class="input-group">
                         <label for="billDate">Date</label>
-                        <input type="date" id="billDate" class="input-field" required>
+                        <input type="date" id="billDate" class="input-field">
                     </div>
                     
                     <div class="input-group">
                         <label for="category">Category</label>
-                        <select id="category" class="input-field" required>
+                        <select id="category" class="input-field">
                             <option value="">Select Category</option>
                             <option value="Groceries">Groceries</option>
                             <option value="Clothing">Clothing</option>
@@ -45,7 +43,7 @@
                     
                     <div class="input-group">
                         <label for="amount">Amount (₹)</label>
-                        <input type="number" id="amount" class="input-field" step="0.01" min="0" required inputmode="decimal">
+                        <input type="number" id="amount" class="input-field" step="0.01" min="0" placeholder="0.00" inputmode="decimal">
                     </div>
                     
                     <div class="input-group">
@@ -53,13 +51,20 @@
                         <textarea id="items" class="input-field textarea-field" placeholder="List items purchased (one per line)"></textarea>
                     </div>
                     
-                    <button type="button" class="btn btn-full" id="addBillBtn">Add Bill</button>
-                </form>
+                    <button type="button" class="btn" id="addBillBtn">Add Bill</button>
+                </div>
             </div>
 
             <div class="card">
                 <h2>Spending Analysis</h2>
-                <div id="billsList"></div>
+                <div id="billsList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
+                        </svg>
+                        <p>No bills added yet. Start by adding your first shopping bill!</p>
+                    </div>
+                </div>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -82,7 +87,9 @@
                 
                 <div class="chart-container" id="categoryChart">
                     <h3 style="margin-bottom: 20px; color: #2d3748;">Spending by Category</h3>
-                    <div id="chartBars"></div>
+                    <div id="chartBars">
+                        <p style="text-align: center; color: #a0aec0;">No spending data available</p>
+                    </div>
                 </div>
             </div>
         </div>
