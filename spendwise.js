@@ -1,11 +1,23 @@
-let bills = [];
+        let bills = [];
+        
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 6 + 's';
+                element.style.animationDuration = (4 + Math.random() * 4) + 's';
+                container.appendChild(element);
+            }
+        }
         
         function loadBills() {
             try {
                 const stored = localStorage.getItem('shoppingBills');
                 bills = stored ? JSON.parse(stored) : [];
             } catch (e) {
-                console.error('Error loading bills:', e);
                 bills = [];
             }
         }
@@ -14,7 +26,6 @@ let bills = [];
             try {
                 localStorage.setItem('shoppingBills', JSON.stringify(bills));
             } catch (e) {
-                console.error('Error saving bills:', e);
                 alert('Error saving data. Storage might be full.');
             }
         }
@@ -61,14 +72,10 @@ let bills = [];
             };
             
             bills.push(newBill);
-            
             saveBills();
-            
             clearForm();
-            
             renderBills();
             updateStats();
-            
             showSuccess();
         }
         
@@ -133,7 +140,6 @@ let bills = [];
             `).join('');
         }
         
-        // Format date
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('en-IN');
@@ -187,10 +193,9 @@ let bills = [];
         }
         
         function initApp() {
+            createFloatingElements();
             document.getElementById('billDate').value = new Date().toISOString().split('T')[0];
-            
             loadBills();
-            
             renderBills();
             updateStats();
             
@@ -205,6 +210,21 @@ let bills = [];
                     addBill();
                 }
             });
+            
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', function(e) {
+                    const floatingElements = document.querySelectorAll('.floating-element');
+                    const mouseX = e.clientX / window.innerWidth;
+                    const mouseY = e.clientY / window.innerHeight;
+                    
+                    floatingElements.forEach((element, index) => {
+                        const speed = (index % 3 + 1) * 0.5;
+                        const x = (mouseX - 0.5) * speed;
+                        const y = (mouseY - 0.5) * speed;
+                        element.style.transform = `translate(${x}px, ${y}px)`;
+                    });
+                });
+            }
         }
         
         if (document.readyState === 'loading') {
